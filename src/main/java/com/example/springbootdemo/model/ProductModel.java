@@ -1,9 +1,14 @@
 package com.example.springbootdemo.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProductModel {
 
+  @JsonProperty("id")
   private int productId;
+  @JsonProperty("name")
   private String title;
+  @JsonProperty("price")
   private int price;
 
   public String getTitle() {
