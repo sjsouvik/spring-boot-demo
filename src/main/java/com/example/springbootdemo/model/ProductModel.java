@@ -9,9 +9,10 @@ import jakarta.persistence.Id;
 @Entity
 public class ProductModel {
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @Id // this would make the property as primary key
+  @GeneratedValue(strategy = GenerationType.AUTO) // this would auto generate the IDs
   @JsonProperty("id")
+  // this would help to hide the actual defined property of the model/entity, instead it would send the given value passed to the annotation(in this example, it would send "id" instead of the actual property "productId")
   private int productId;
   @JsonProperty("name")
   private String title;
