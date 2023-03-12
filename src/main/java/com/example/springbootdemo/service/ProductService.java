@@ -1,8 +1,10 @@
 package com.example.springbootdemo.service;
 
+import com.example.springbootdemo.Exception.ProductNotFoundException;
 import com.example.springbootdemo.model.ProductModel;
 import com.example.springbootdemo.repository.ProductRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,13 @@ public class ProductService {
   }
 
   public ProductModel getProduct(int productId) {
-    return productRepository.findById(productId).get();
+    Optional<ProductModel> productModel = productRepository.findById(productId);
+
+    if (!productModel.isPresent()) {
+      throw new ProductNotFoundException("Oops! this product is not available!");
+    }
+
+    return productModel.get();
   }
 
   public ProductModel updateProduct(int productId, ProductModel product) {
