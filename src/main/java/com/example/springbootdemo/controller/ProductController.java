@@ -1,9 +1,12 @@
 package com.example.springbootdemo.controller;
 
+import com.example.springbootdemo.dto.ProductDto;
+import com.example.springbootdemo.mapper.ProductMapper;
 import com.example.springbootdemo.model.ProductModel;
 import com.example.springbootdemo.service.ProductService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +24,8 @@ public class ProductController {
   private ProductService productService;
 
   @PostMapping
-  public ProductModel addProduct(@RequestBody ProductModel product) {
-    return productService.addProduct(product);
+  public ResponseEntity<ProductDto> addProduct(@RequestBody ProductModel product) {
+    return ResponseEntity.ok(ProductMapper.instance.productModelToDto(productService.addProduct(product)));
   }
 
   @GetMapping
@@ -31,13 +34,13 @@ public class ProductController {
   }
 
   @GetMapping(value = "/{productId}")
-  public ProductModel getProduct(@PathVariable("productId") int productId) {
-    return productService.getProduct(productId);
+  public ResponseEntity<ProductDto> getProduct(@PathVariable("productId") int productId) {
+    return ResponseEntity.ok(ProductMapper.instance.productModelToDto(productService.getProduct(productId)));
   }
 
   @PutMapping(value = "/{productId}")
-  public ProductModel updateProduct(@PathVariable("productId") int productId, @RequestBody ProductModel product) {
-    return productService.updateProduct(productId, product);
+  public ResponseEntity<ProductDto> updateProduct(@PathVariable("productId") int productId, @RequestBody ProductModel product) {
+    return ResponseEntity.ok(ProductMapper.instance.productModelToDto(productService.updateProduct(productId, product)));
   }
 
   @DeleteMapping(value = "/{productId}")
